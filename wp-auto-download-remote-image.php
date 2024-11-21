@@ -36,7 +36,7 @@ remove_action('publish_post', 'download_remote_images_on_publish');
         if (strpos($url, get_site_url()) === false && !is_image_already_downloaded($url)) {
             // Download the image
             $response = wp_remote_get($url);
-            if (is_wp_error($response)||$response == null) {
+            if (is_wp_error($response)||empty($response)) {
                 continue;
             }
 
