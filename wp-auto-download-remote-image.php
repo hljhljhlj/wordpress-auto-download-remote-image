@@ -1,4 +1,7 @@
 <?php
+/*  
+Author URI: https://www.xiaolikt.cn/
+*/
 add_action('publish_post', 'download_remote_images_on_publish');
 function download_remote_images_on_publish($post_id) {
     // Check if this is an auto-save routine. If it is, our form has not been submitted, so we don't want to do anything.
