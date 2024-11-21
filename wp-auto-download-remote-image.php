@@ -14,9 +14,9 @@ function download_remote_images_on_publish($post_id) {
         return;
     }
 
-   if ( !current_user_can('edit_post', $post_ID) ) 
+   if ( !current_user_can('edit_post', $post_id) ) {
 	return;
-    
+   }
 remove_action('publish_post', 'download_remote_images_on_publish');
     // Get the post content
     $content = get_post_field('post_content', $post_id);
