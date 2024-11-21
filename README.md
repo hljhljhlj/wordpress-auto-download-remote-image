@@ -1,1 +1,1 @@
-这个插件在AI生成的基础上修改
+This plug-in is modified based on AI generation
