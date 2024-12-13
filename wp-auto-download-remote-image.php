@@ -5,7 +5,7 @@ Plugin URI: https://github.com/hljhljhlj/wordpress-auto-download-remote-image
 Description: wordpress auto download remote image when publish
 Author: He Lijun
 Author URI: http://www.xiaolikt.cn
-Version: 1.0.1
+Version: 1.2.0
 */
 add_action('publish_post', 'download_remote_images_on_publish');
 function download_remote_images_on_publish($post_id) {
@@ -25,10 +25,18 @@ remove_action('publish_post', 'download_remote_images_on_publish');
     $dom = new DOMDocument();
     @$dom->loadHTML($content);
 
-    // Get all image tags
-    $images = $dom->getElementsByTagName('img');
+ // Get all image tags within and outside <figure> tags
+    $imageTags = [];
+    foreach ($dom->getElementsByTagName('img') as $img) {
+        $imageTags[] = $img;
+    }
+    foreach ($dom->getElementsByTagName('figure') as $figure) {
+        foreach ($figure->getElementsByTagName('img') as $img) {
+            $imageTags[] = $img;
+        }
+    }
 
-    foreach ($images as $img) {
+    foreach ($imageTags as $img) {
         $url = $img->getAttribute('src');
 
         // Check if the image is remote and not already downloaded
