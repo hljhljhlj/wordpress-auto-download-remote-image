@@ -5,7 +5,7 @@ Plugin URI: https://github.com/hljhljhlj/wordpress-auto-download-remote-image
 Description: wordpress auto download remote image when publish
 Author: He Lijun
 Author URI: http://www.xiaolikt.cn
-Version: 1.2.0
+Version: 1.3.0
 */
 add_action('publish_post', 'download_remote_images_on_publish');
 function download_remote_images_on_publish($post_id) {
