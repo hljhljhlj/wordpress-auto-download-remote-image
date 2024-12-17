@@ -25,18 +25,21 @@ remove_action('publish_post', 'download_remote_images_on_publish');
     $dom = new DOMDocument();
     @$dom->loadHTML($content);
 
- // Get all image tags within and outside <figure> tags
-    $imageTags = [];
-    foreach ($dom->getElementsByTagName('img') as $img) {
-        $imageTags[] = $img;
-    }
-    foreach ($dom->getElementsByTagName('figure') as $figure) {
-        foreach ($figure->getElementsByTagName('img') as $img) {
-            $imageTags[] = $img;
+// Function to recursively find all image tags
+    function find_images($node, &$images) {
+        if ($node->nodeName === 'img') {
+            $images[] = $node;
+        }
+        if ($node->hasChildNodes()) {
+            foreach ($node->childNodes as $child) {
+                find_images($child, $images);
+            }
         }
     }
 
-    foreach ($imageTags as $img) {
+    $images = [];
+    find_images($dom, $images);
+    foreach ($images as $img) {
         $url = $img->getAttribute('src');
 
         // Check if the image is remote and not already downloaded
